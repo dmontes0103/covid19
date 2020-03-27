@@ -1,13 +1,13 @@
 import { CoronastatisticsService } from './services/coronastatistics.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule} from '@angular/common/http';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    LeafletModule
   ],
   providers: [CoronastatisticsService],
   bootstrap: [AppComponent]

@@ -1,12 +1,16 @@
+<app-main-dashboard></app-main-dashboard>
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
     </div>
 </div>
-<div id="generalStats" >
-  <p><b>Cases:</b> {{ cases }} </p>
-  <p><b>New cases:</b> {{ todayCases }}  </p>
-  <p><b>Total recovered: </b>  {{ totalRecovered }}   </p>
-  <p><b>Total deaths: </b> {{ deaths}} </p>
-  <p><b>New deaths: </b> 0</p>
+<div  id="generalStats" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">General Stats</div>
+  <div class="card-body">
+    <p class="card-text"><b>Date:</b> {{ lastChecked }} </p>
+    <p class="card-text"><b>Cases:</b> {{ cases }} </p>
+    <p class="card-text"><b>New cases:</b> {{ todayCases }}  </p>
+    <p class="card-text"><b>Total recovered: </b>  {{ totalRecovered }}   </p>
+    <p class="card-text"><b>Total deaths: </b> {{ deaths}} </p>
+  </div>
 </div>
