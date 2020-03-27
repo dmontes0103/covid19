@@ -69,8 +69,8 @@ export class MapComponent implements OnInit {
         this.totalRecovered = data["recovered"];
         this.deaths = data["deaths"];
         this.nDeaths = data["todayDeaths"];
-        //this.stats = Object.keys(data).map(e => data[e]);
-        //console.log('Data:' + this.stats);
+        this.stats = Object.keys(data).map(e => data[e]);
+        console.log('Data:' + this.stats);
       }
     );
   }

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainDashboardComponent implements OnInit {
 
-  title = "COVID19 - Costa Rica"
+  title = 'COVID19 - Costa Rica'
   constructor() { }
 
   ngOnInit() {
