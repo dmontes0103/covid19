@@ -60,8 +60,8 @@ export class MapComponent implements OnInit {
   }
 
   loadGeneralData() {
-    this.css.loadCostaRicaData().toPromise().then(
-      (data) => {
+    this.css.loadCostaRicaData().toPromise()
+      .then((data) => {
         //console.log(data);
         var date = new Date(data["data"]["lastChecked"]);
         this.lastChecked = date.toISOString().substring(0, 10);
@@ -72,8 +72,7 @@ export class MapComponent implements OnInit {
         this.nDeaths = data["todayDeaths"];
         // this.stats = Object.keys(data).map(e => data[e]);
         // console.log('Data:' + this.stats);
-      }
-    )
+      })
       .catch(error => console.log(error)
       );
   }
