@@ -135,6 +135,7 @@ export class MapComponent implements OnInit {
          <p class="card-text">Casos confirmados: ${element.cases} </p>
          </div>
        </div>`;
+
       const newMarker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
     });
   }
