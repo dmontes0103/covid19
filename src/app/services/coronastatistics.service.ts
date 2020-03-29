@@ -14,7 +14,7 @@ export class CoronastatisticsService {
 
   constructor(private httpClient: HttpClient) {
     environment.production ? this.API_KEY = '' : this.API_KEY = environment.api_tst_key;
-    console.log('Using key:',this.API_KEY);
+    // console.log('Using key:', this.API_KEY);
    }
 
   loadCostaRicaData(){
@@ -27,12 +27,10 @@ export class CoronastatisticsService {
       {headers:_headers, params: _params});
   }
 
-  load(){
-    const _headers = new HttpHeaders()
-    .set('Access-Control-Allow-Origin', 'http://localhost:4200')
+  loadProvinceData(){
+    const headers = new HttpHeaders()
     .set('Content-Type','application/json');
-    return this.httpClient.get(this.CR_API,
-      {headers: _headers});
+    return this.httpClient.get(this.CR_API, {headers});
   }
 
 }

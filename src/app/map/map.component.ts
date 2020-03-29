@@ -12,28 +12,8 @@ import { read } from "fs";
   styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit {
-  geojsonFeature = {
-    type: "Feature",
-    properties: {
-      name: "Coors Field",
-      amenity: "Baseball Stadium",
-      popupContent: "This is where the Rockies play!"
-    },
-    geometry: {
-      type: "Polygon",
-      coordinates: [
-        [
-          [-104.05, 48.99],
-          [-97.22, 48.98],
-          [-96.58, 45.94],
-          [-104.03, 45.94],
-          [-104.05, 48.99]
-        ]
-      ]
-    }
-  };
-  private marker: any;
 
+  private marker: any;
   cases: number;
   todayCases: number;
   totalRecovered: number;
@@ -41,48 +21,53 @@ export class MapComponent implements OnInit {
   nDeaths: number;
   lastChecked: string;
 
-  currentProv:any;
+  currentProv: any;
 
   map: any;
   base: string[] = myProvinces.provincesData.features;
 
   markersFlag: false
-  public markersArray: Array<any>= [];
+  public markersArray: Array<any> = [];
+
+  provinceData:any;
 
   constructor(private css: CoronastatisticsService) {}
 
   ngOnInit() {
-    // this.highLightProvince("Alajuela");
-    this.initCostaRicaMap();
-    // this.initMarkers();
+    this.initMainLayer();
     this.loadGeneralData();
-    this.loadCRAPI();
-
   }
 
-  // drawMapLayer(){
-  //   L.tileLayer(
-  //     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
-  //     {
-  //       maxZoom: 18,
-  //       attribution:
-  //         'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-  //         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-  //         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  //       id: "mapbox/streets-v11",
-  //       tileSize: 512,
-  //       zoomOffset: -1
-  //     }
-  //   ).addTo(this.map);
-  // }
+  initMainLayer(){
+    this.map = L.map("map", { center: [9.934739, -84.087502], zoom: 9 });
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+      {
+        maxZoom: 18,
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1
+      }
+    ).addTo(this.map);
+  }
 
-  showMarkers(){
+  showDistricts(){
+    this.map.remove();
+    this.initMainLayer();
     this.initMarkers();
   }
 
-  private initCostaRicaMap(): void {
-    this.map = L.map("map", { center: [9.934739, -84.087502], zoom: 9 });
+  showProvinces(){
+    this.map.remove();
+    this.initMainLayer();
+    this.loadCantonesMap();
+  }
 
+  initCantonesMap(pD:any): void {
     L.tileLayer(
       // tslint:disable-next-line: max-line-length
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -98,38 +83,49 @@ export class MapComponent implements OnInit {
       }
     ).addTo(this.map);
 
-    L.geoJSON(JSON.parse(JSON.stringify(myProvinces.provincesData)), {
-      onEachFeature: function(feature, layer) {
-        layer.on("mouseover", function() {
+    let data = '';
+    var geojson = L.geoJSON(JSON.parse(JSON.stringify(myProvinces.provincesData)), {
 
-        });
-        layer.on('mouseout',function(){
+      onEachFeature:function(feature, layer) {
+
+        layer.on("mouseover", function() {
           this.setStyle({
-            //color:"blue"
+            color: 'red'
           });
         });
+        layer.on('mouseout', function(e){
+          geojson.resetStyle(e.target);
+        });
         layer.on("click", function() {
-          layer.remove();
+          //layer.remove();
           // this.setStyle({
           //     color: 'green'
           // });
         });
+
+        let province:string = feature.properties.name === "San Jose" ? "sanJose" : String(feature.properties.name).toLocaleLowerCase();
+        // Access dictionary of provinces and cases using province name
+
+        data = `<div class="info">
+        <h4> <b> ${ feature.properties.name } </b> </h4>
+          <p>Casos confirmados: ${ pD["data"][0]["byLocation"][province]}</p>
+        </div>`;
+
+        layer.bindPopup(data);
       }
-    }).addTo(this.map);
+    }
+    ).addTo(this.map)
   }
 
   getProvincia(name: string) {
     for (let p in this.base) {
-      if (this.base[p]["properties"]["name"] === name) {
-        console.log(this.base[p]["properties"]["name"]);
+      const provinceName = this.base[p]["properties"]["name"];
+      if ( provinceName === name) {
+        console.log("Nombre de Provincia:",this.base[p]["properties"]["name"]);
         console.log(this.base[p]);
         return this.base[p];
       }
     }
-  }
-
-  getColor() {
-    console.log(this.base);
   }
 
   initMarkers() {
@@ -162,15 +158,10 @@ export class MapComponent implements OnInit {
       .catch(error => console.log(error));
   }
 
-  resetLayers() {
-
-  }
-
   onProvinceChanged(value: string) {
 
     console.log(value);
     const provincia = this.getProvincia(value);
-    this.resetLayers();
     L.geoJSON(JSON.parse(JSON.stringify(provincia)), {
       onEachFeature(feature, layer) {
         layer.on('mouseover', function(){
@@ -178,7 +169,7 @@ export class MapComponent implements OnInit {
         });
         layer.on('mouseout', function() {
           this.setStyle({
-            color:"blue"
+            color: "blue"
           });
         });
         layer.on('click', function() {
@@ -192,9 +183,20 @@ export class MapComponent implements OnInit {
 
   }
 
-  loadCRAPI() {
-    this.css.load().subscribe(data => {
-      const date = data["data"][0]["byLocation"];
-    });
+  loadCantonesMap(){
+    // this.css.load().subscribe(data => {
+    //   // this.provinceData = data["data"][0]["byLocation"];
+    //   // console.log(this.provinceData);
+    //   // // for (const p in dataByLoc) {
+    //   // //   this.setProvinceCases(p.toUpperCase(), dataByLoc[p])
+    //   // // };
+    //   return data["data"][0]["byLocation"];
+    // });
+    this.css.loadProvinceData().subscribe(
+      ( data ) => {
+      this.provinceData = data;
+      this.initCantonesMap(this.provinceData);
+      }
+    );
   }
 }
