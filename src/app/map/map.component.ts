@@ -129,13 +129,18 @@ export class MapComponent implements OnInit {
   }
 
   initMarkers() {
+  let DefaultIcon = L.icon({
+      iconUrl: 'assets/marker-icon.png',
+      shadowUrl: 'assets/marker-shadow.png'
+  });
+
     name.forEach(element => {
       const data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
        <h5 class="card-title"> ${element.name} </h5>
          <p class="card-text">Casos confirmados: ${element.cases} </p>
          </div>
        </div>`;
-
+      L.Marker.prototype.options.icon = DefaultIcon;
       const newMarker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
     });
   }
