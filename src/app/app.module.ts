@@ -20,7 +20,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    LeafletModule
+    LeafletModule.forRoot()
   ],
   providers: [CoronastatisticsService],
   bootstrap: [AppComponent]

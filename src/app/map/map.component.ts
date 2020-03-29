@@ -1,16 +1,37 @@
-import { CoronastatisticsService } from './../services/coronastatistics.service';
-import { Component, OnInit } from '@angular/core';
-import name from '../data/data';
-import * as L from 'leaflet';
+import { element } from 'protractor';
+import { CoronastatisticsService } from "./../services/coronastatistics.service";
+import { Component, OnInit } from "@angular/core";
+import name from "../data/data";
+import * as L from "leaflet";
+import * as myProvinces from "../data/provincesData";
+import { read } from "fs";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.css"]
 })
-
 export class MapComponent implements OnInit {
-
+  geojsonFeature = {
+    type: "Feature",
+    properties: {
+      name: "Coors Field",
+      amenity: "Baseball Stadium",
+      popupContent: "This is where the Rockies play!"
+    },
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [-104.05, 48.99],
+          [-97.22, 48.98],
+          [-96.58, 45.94],
+          [-104.03, 45.94],
+          [-104.05, 48.99]
+        ]
+      ]
+    }
+  };
   private marker: any;
 
   cases: number;
@@ -18,52 +39,117 @@ export class MapComponent implements OnInit {
   totalRecovered: number;
   deaths: number;
   nDeaths: number;
-  lastChecked: string
+  lastChecked: string;
+
+  currentProv:any;
 
   map: any;
-  constructor(private css: CoronastatisticsService) { }
+  base: string[] = myProvinces.provincesData.features;
+
+  markersFlag: false
+  public markersArray: Array<any>= [];
+
+  constructor(private css: CoronastatisticsService) {}
 
   ngOnInit() {
+    // this.highLightProvince("Alajuela");
     this.initCostaRicaMap();
-    this.initMarkers();
+    // this.initMarkers();
     this.loadGeneralData();
+    this.loadCRAPI();
+
+  }
+
+  // drawMapLayer(){
+  //   L.tileLayer(
+  //     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+  //     {
+  //       maxZoom: 18,
+  //       attribution:
+  //         'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+  //         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+  //         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  //       id: "mapbox/streets-v11",
+  //       tileSize: 512,
+  //       zoomOffset: -1
+  //     }
+  //   ).addTo(this.map);
+  // }
+
+  showMarkers(){
+    this.initMarkers();
   }
 
   private initCostaRicaMap(): void {
-    this.map = L.map('map', { center: [9.934739, -84.087502], zoom: 9 });
+    this.map = L.map("map", { center: [9.934739, -84.087502], zoom: 9 });
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+    L.tileLayer(
+      // tslint:disable-next-line: max-line-length
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
       {
         maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
+        id: "mapbox/streets-v11",
         tileSize: 512,
         zoomOffset: -1
-      }).addTo(this.map);
+      }
+    ).addTo(this.map);
 
+    L.geoJSON(JSON.parse(JSON.stringify(myProvinces.provincesData)), {
+      onEachFeature: function(feature, layer) {
+        layer.on("mouseover", function() {
+
+        });
+        layer.on('mouseout',function(){
+          this.setStyle({
+            //color:"blue"
+          });
+        });
+        layer.on("click", function() {
+          layer.remove();
+          // this.setStyle({
+          //     color: 'green'
+          // });
+        });
+      }
+    }).addTo(this.map);
+  }
+
+  getProvincia(name: string) {
+    for (let p in this.base) {
+      if (this.base[p]["properties"]["name"] === name) {
+        console.log(this.base[p]["properties"]["name"]);
+        console.log(this.base[p]);
+        return this.base[p];
+      }
+    }
+  }
+
+  getColor() {
+    console.log(this.base);
   }
 
   initMarkers() {
-    // name.forEach(element => {
-    //   this.marker = L.marker(element.latlng).addTo(this.map).bindPopup("<b>" + element.name + "</b><p>Casos confirmados:" + element.cases + "</p>");
-    // });
     name.forEach(element => {
-      var data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
-      <h5 class="card-title"> ${element.name} </h5>
-        <p class="card-text">Casos confirmados: ${element.cases} </p>
-        </div>
-      </div>`
-      this.marker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
+      const data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
+       <h5 class="card-title"> ${element.name} </h5>
+         <p class="card-text">Casos confirmados: ${element.cases} </p>
+         </div>
+       </div>`;
+      const newMarker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
     });
   }
 
   loadGeneralData() {
-    this.css.loadCostaRicaData().toPromise()
-      .then((data) => {
-        //console.log(data);
-        var date = new Date(data["data"]["lastChecked"]);
+    this.css
+      .loadCostaRicaData()
+      .toPromise()
+      .then(data => {
+        // console.log(data);
+        const date = new Date(data["data"]["lastChecked"]);
         this.lastChecked = date.toISOString().substring(0, 10);
         this.cases = data["data"]["covid19Stats"][0]["confirmed"];
         this.todayCases = data["todayCases"];
@@ -73,8 +159,42 @@ export class MapComponent implements OnInit {
         // this.stats = Object.keys(data).map(e => data[e]);
         // console.log('Data:' + this.stats);
       })
-      .catch(error => console.log(error)
-      );
+      .catch(error => console.log(error));
   }
 
+  resetLayers() {
+
+  }
+
+  onProvinceChanged(value: string) {
+
+    console.log(value);
+    const provincia = this.getProvincia(value);
+    this.resetLayers();
+    L.geoJSON(JSON.parse(JSON.stringify(provincia)), {
+      onEachFeature(feature, layer) {
+        layer.on('mouseover', function(){
+
+        });
+        layer.on('mouseout', function() {
+          this.setStyle({
+            color:"blue"
+          });
+        });
+        layer.on('click', function() {
+          layer.remove();
+          // this.setStyle({
+          //     color: 'green'
+          // });
+        });
+      }
+    }).addTo(this.map);
+
+  }
+
+  loadCRAPI() {
+    this.css.load().subscribe(data => {
+      const date = data["data"][0]["byLocation"];
+    });
+  }
 }

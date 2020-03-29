@@ -9,7 +9,8 @@ export class CoronastatisticsService {
 
 
   URL_API = 'https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats';
-  API_KEY = ''
+  API_KEY = '';
+  CR_API = 'https://coronaviruscr.com/api/reports';
 
   constructor(private httpClient: HttpClient) {
     environment.production ? this.API_KEY = '' : this.API_KEY = environment.api_tst_key;
@@ -24,6 +25,14 @@ export class CoronastatisticsService {
     .set('X-RapidAPI-Key', this.API_KEY);
     return this.httpClient.get(this.URL_API,
       {headers:_headers, params: _params});
+  }
+
+  load(){
+    const _headers = new HttpHeaders()
+    .set('Access-Control-Allow-Origin', 'http://localhost:4200')
+    .set('Content-Type','application/json');
+    return this.httpClient.get(this.CR_API,
+      {headers: _headers});
   }
 
 }
