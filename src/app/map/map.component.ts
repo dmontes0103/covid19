@@ -144,7 +144,7 @@ export class MapComponent implements OnInit {
       .loadCostaRicaData()
       .toPromise()
       .then(data => {
-        // console.log(data);
+        console.log("GeneralData:",data);
         const date = new Date(data["data"]["lastChecked"]);
         this.lastChecked = date.toISOString().substring(0, 10);
         this.cases = data["data"]["covid19Stats"][0]["confirmed"];

@@ -13,8 +13,7 @@ export class CoronastatisticsService {
   CR_API = 'https://coronaviruscr.com/api/reports';
 
   constructor(private httpClient: HttpClient) {
-    environment.production ? this.API_KEY = '' : this.API_KEY = environment.api_tst_key;
-    // console.log('Using key:', this.API_KEY);
+    environment.production ? this.API_KEY = environment.api_tst_key : this.API_KEY = environment.api_tst_key;
    }
 
   loadCostaRicaData(){
