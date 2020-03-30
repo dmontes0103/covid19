@@ -39,20 +39,20 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
-    this.css.loadDistrictsData().subscribe(
-      (response) =>{
-        this.csv = response;
-      var data = papa.parse(this.csv,{header: true});
-      console.log('Data in csv:',data);
-     }
-    );
+    // this.css.loadDistrictsData().subscribe(
+    //   (response) =>{
+    //     this.csv = response;
+    //   var data = papa.parse(this.csv,{header: true});
+    //   console.log('Data in csv:',data);
+    //  }
+    // );
 
 
-    this.css.loadCostaRicaData_2().subscribe(
-      (data) => {
-      console.log("2 API:", data);
-      }
-    );
+    // this.css.loadCostaRicaData_2().subscribe(
+    //   (data) => {
+    //   console.log("2 API:", data);
+    //   }
+    // );
 
     this.initMainLayer();
     this.loadGeneralData();
