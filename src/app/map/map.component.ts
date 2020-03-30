@@ -6,6 +6,8 @@ import * as L from "leaflet";
 import * as myProvinces from "../data/provincesData";
 import { read } from "fs";
 
+const papa = require('papaparse');
+
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -31,9 +33,20 @@ export class MapComponent implements OnInit {
 
   provinceData:any;
 
+  csv;
+
   constructor(private css: CoronastatisticsService) {}
 
   ngOnInit() {
+
+    this.css.loadDistrictsData().subscribe(
+      (response) =>{
+        this.csv = response;
+      var data = papa.parse(this.csv,{header: true});
+      console.log('Data in csv:',data);
+     }
+    );
+
 
     this.css.loadCostaRicaData_2().subscribe(
       (data) => {
@@ -142,11 +155,18 @@ export class MapComponent implements OnInit {
   });
 
     name.forEach(element => {
-      const data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
-       <h5 class="card-title"> ${element.name} </h5>
-         <p class="card-text">Casos confirmados: ${element.cases} </p>
-         </div>
-       </div>`;
+      // const data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
+      //  <h5 class="card-title"> ${element.name} </h5>
+      //    <p class="card-text">Casos confirmados: ${element.cases} </p>
+      //    </div>
+      //  </div>`;
+
+      const data =
+       `<div class="info">
+        <h4> <b> ${element.name} </b> </h4>
+          <p>Casos confirmados: ${ element.cases} </p>
+        </div>`
+
       L.Marker.prototype.options.icon = DefaultIcon;
       const newMarker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
     });

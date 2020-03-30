@@ -38,4 +38,8 @@ export class CoronastatisticsService {
     return this.httpClient.get(this.URL_API_2);
   }
 
+  loadDistrictsData(){
+    return this.httpClient.get('http://geovision.uned.ac.cr/oges/archivos_covid/03_28/03_28_CSV.csv',{responseType:'text'});
+  }
+
 }
