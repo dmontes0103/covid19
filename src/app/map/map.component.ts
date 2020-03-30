@@ -23,8 +23,6 @@ export class MapComponent implements OnInit {
   nDeaths: number;
   lastChecked: string;
 
-  currentProv: any;
-
   map: any;
   base: string[] = myProvinces.provincesData.features;
 
