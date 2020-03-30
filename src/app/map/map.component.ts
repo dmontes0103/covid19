@@ -34,6 +34,13 @@ export class MapComponent implements OnInit {
   constructor(private css: CoronastatisticsService) {}
 
   ngOnInit() {
+
+    this.css.loadCostaRicaData_2().subscribe(
+      (data) => {
+      console.log("2 API:", data);
+      }
+    );
+
     this.initMainLayer();
     this.loadGeneralData();
   }
