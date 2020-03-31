@@ -123,7 +123,7 @@ export class MapComponent implements OnInit {
           // });
         });
 
-        let province:string = feature.properties.name === "San Jose" ? "sanJose" : String(feature.properties.name).toLocaleLowerCase();
+        let province:string = feature.properties.name === "SAN JOSE" ? "sanJose" : String(feature.properties.name).toLocaleLowerCase();
         // Access dictionary of provinces and cases using province name
 
         data = `<div class="info">
