@@ -1,3 +1,4 @@
+import { ProviceObject } from './../models/CovidProvinces';
 import { element } from 'protractor';
 import { CoronastatisticsService } from "./../services/coronastatistics.service";
 import { Component, OnInit } from "@angular/core";
@@ -18,19 +19,17 @@ export class MapComponent implements OnInit {
 
   private marker: any;
   cases: number;
-  todayCases: number;
   totalRecovered: number;
   deaths: number;
-  nDeaths: number;
-  lastChecked: string;
+  lastChecked: Date;
+
+  currentProv: any;
 
   map: any;
   base: string[] = myProvinces.provincesData.features;
+  markersArray: Array<any> = [];
 
-  markersFlag: false
-  public markersArray: Array<any> = [];
-
-  provinceData:any;
+  provinceData:ProviceObject;
 
   csv;
 
@@ -86,7 +85,7 @@ export class MapComponent implements OnInit {
     this.loadCantonesMap();
   }
 
-  initCantonesMap(pD:any): void {
+  initCantonesMap(pD: ProviceObject): void {
     L.tileLayer(
       // tslint:disable-next-line: max-line-length
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -121,13 +120,13 @@ export class MapComponent implements OnInit {
           //     color: 'green'
           // });
         });
-
-        let province:string = feature.properties.name === "San Jose" ? "sanJose" : String(feature.properties.name).toLocaleLowerCase();
+        //console.log('Ticos:', pD.data[0].byNationality.costarricans);
+        let province:string = feature.properties.name === "SAN JOSE" ? "sanJose" : String(feature.properties.name).toLocaleLowerCase();
         // Access dictionary of provinces and cases using province name
-
+        //console.log(province, pD.data[0].byLocation[province]);
         data = `<div class="info">
         <h4> <b> ${ feature.properties.name } </b> </h4>
-          <p>Casos confirmados: ${ pD["data"][0]["byLocation"][province]}</p>
+          <p>Casos confirmados: ${ pD.data[0].byLocation[province] } </p>
         </div>`;
 
         layer.bindPopup(data);
@@ -175,17 +174,13 @@ export class MapComponent implements OnInit {
     this.css
       .loadCostaRicaData()
       .toPromise()
-      .then(data => {
-        console.log("GeneralData:",data);
-        const date = new Date(data["data"]["lastChecked"]);
-        this.lastChecked = date.toISOString().substring(0, 10);
-        this.cases = data["data"]["covid19Stats"][0]["confirmed"];
-        this.todayCases = data["todayCases"];
-        this.totalRecovered = data["data"]["covid19Stats"][0]["recovered"];
-        this.deaths = data["data"]["covid19Stats"][0]["deaths"];
-        this.nDeaths = data["todayDeaths"];
-        // this.stats = Object.keys(data).map(e => data[e]);
-        // console.log('Data:' + this.stats);
+      .then(CovidInterface => {
+        //console.log("JSON ", JSON.stringify(CovidInterface));
+        //console.log("GeneralData with Interface:", CovidInterface.data.covid19Stats[0]);
+        this.lastChecked = new Date(CovidInterface.data.covid19Stats[0].lastUpdate);
+        this.cases = CovidInterface.data.covid19Stats[0].confirmed;
+        this.totalRecovered = CovidInterface.data.covid19Stats[0].recovered;
+        this.deaths = CovidInterface.data.covid19Stats[0].deaths;
       })
       .catch(error => console.log(error));
   }
@@ -225,10 +220,12 @@ export class MapComponent implements OnInit {
     //   return data["data"][0]["byLocation"];
     // });
     this.css.loadProvinceData().subscribe(
-      ( data ) => {
-      this.provinceData = data;
+      ( ProviceObject ) => {
+      this.provinceData = ProviceObject;
       this.initCantonesMap(this.provinceData);
-      }
+      },
+      err => { console.log('Error:', err)},
+      () => {console.log('Data loaded successfully')}
     );
   }
 }
