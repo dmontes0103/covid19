@@ -8,6 +8,7 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ErrorHandlingService } from './services/error-handling.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     HttpClientModule,
     LeafletModule.forRoot()
   ],
-  providers: [CoronastatisticsService],
+  providers: [CoronastatisticsService,ErrorHandlingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

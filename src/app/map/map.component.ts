@@ -5,6 +5,7 @@ import name from "../data/data";
 import * as L from "leaflet";
 import * as myProvinces from "../data/provincesData";
 import { read } from "fs";
+import { ErrorHandlingService } from '../services/error-handling.service';
 
 const papa = require('papaparse');
 
@@ -33,10 +34,10 @@ export class MapComponent implements OnInit {
 
   csv;
 
-  constructor(private css: CoronastatisticsService) {}
+  constructor(private css: CoronastatisticsService, private ehs: ErrorHandlingService) {}
 
   ngOnInit() {
-
+    this.ehs.redirectToSolution('how to get iso java date');
     // this.css.loadDistrictsData().subscribe(
     //   (response) =>{
     //     this.csv = response;
