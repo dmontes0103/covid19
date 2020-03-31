@@ -23,6 +23,8 @@ export class MapComponent implements OnInit {
   nDeaths: number;
   lastChecked: string;
 
+  currentProv: any;
+
   map: any;
   base: string[] = myProvinces.provincesData.features;
 
@@ -175,7 +177,7 @@ export class MapComponent implements OnInit {
       .loadCostaRicaData()
       .toPromise()
       .then(data => {
-        console.log("GeneralData:",data);
+        console.log("GeneralData:",JSON.stringify(data));
         const date = new Date(data["data"]["lastChecked"]);
         this.lastChecked = date.toISOString().substring(0, 10);
         this.cases = data["data"]["covid19Stats"][0]["confirmed"];
