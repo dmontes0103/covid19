@@ -7,9 +7,8 @@
 <div  id="generalStats" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
   <div class="card-header">General Stats</div>
   <div class="card-body">
-    <p class="card-text"><b>Date:</b> {{ lastChecked }} </p>
+    <p class="card-text"><b>Date:</b> {{ lastChecked | date: 'dd-MMMM-yyyy' }} </p>
     <p class="card-text"><b>Cases:</b> {{ cases }} </p>
-    <p class="card-text"><b>New cases:</b> {{ todayCases }}  </p>
     <p class="card-text"><b>Total recovered: </b>  {{ totalRecovered }}   </p>
     <p class="card-text"><b>Total deaths: </b> {{ deaths}} </p>
   </div>

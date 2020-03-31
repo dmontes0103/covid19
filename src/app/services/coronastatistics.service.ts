@@ -1,7 +1,9 @@
+import { ProviceObject } from './../models/CovidProvinces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { RootObject } from '../models/Covid19';
 
 @Injectable()
 
@@ -18,28 +20,28 @@ export class CoronastatisticsService {
     environment.production ? this.API_KEY = environment.api_tst_key : this.API_KEY = environment.api_tst_key;
    }
 
-  loadCostaRicaData(){
+  loadCostaRicaData(): Observable<RootObject>{
     const _params = new HttpParams()
     .set('country', 'Costa Rica')
     const _headers = new HttpHeaders()
     .set('x-rapidapi-host','covid-19-coronavirus-statistics.p.rapidapi.com')
     .set('X-RapidAPI-Key', this.API_KEY);
-    return this.httpClient.get(this.URL_API,
+    return this.httpClient.get<RootObject>(this.URL_API,
       {headers:_headers, params: _params});
   }
 
-  loadProvinceData(){
+  loadProvinceData(): Observable<ProviceObject> {
     const headers = new HttpHeaders()
     .set('Content-Type','application/json');
-    return this.httpClient.get(this.CR_API, {headers});
+    return this.httpClient.get<ProviceObject>(this.CR_API, {headers});
   }
 
-  loadCostaRicaData_2(){
+  loadCostaRicaData_2() {
     return this.httpClient.get(this.URL_API_2);
   }
 
-  loadDistrictsData(){
-    return this.httpClient.get('http://geovision.uned.ac.cr/oges/archivos_covid/03_28/03_28_CSV.csv',{responseType:'text'});
+  loadDistrictsData() {
+    return this.httpClient.get('http://geovision.uned.ac.cr/oges/archivos_covid/03_28/03_28_CSV.csv',{responseType: 'text'});
   }
 
 }
