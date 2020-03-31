@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
   constructor(private css: CoronastatisticsService, private ehs: ErrorHandlingService) {}
 
   ngOnInit() {
-    this.ehs.redirectToSolution('how to get iso java date');
+    //this.ehs.redirectToSolution('how to get iso java date');
     // this.css.loadDistrictsData().subscribe(
     //   (response) =>{
     //     this.csv = response;
@@ -82,10 +82,10 @@ export class MapComponent implements OnInit {
   showProvinces(){
     this.map.remove();
     this.initMainLayer();
-    this.loadCantonesMap();
+    this.loadProvincesMap();
   }
 
-  initCantonesMap(pD: ProviceObject): void {
+  initProvincesMap(pD: ProviceObject): void {
     L.tileLayer(
       // tslint:disable-next-line: max-line-length
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -126,7 +126,7 @@ export class MapComponent implements OnInit {
         //console.log(province, pD.data[0].byLocation[province]);
         data = `<div class="info">
         <h4> <b> ${ feature.properties.name } </b> </h4>
-          <p>Casos confirmados: ${ pD.data[0].byLocation[province] } </p>
+          <p>Casos confirmados: ${ pD ? pD.data[0].byLocation[province] : 'Undefined' } </p>
         </div>`;
 
         layer.bindPopup(data);
@@ -166,24 +166,23 @@ export class MapComponent implements OnInit {
         </div>`
 
       L.Marker.prototype.options.icon = DefaultIcon;
-      const newMarker = L.marker(element.latlng).addTo(this.map).bindPopup(data);
+      L.marker(element.latlng).addTo(this.map).bindPopup(data);
     });
   }
 
-  loadGeneralData() {
+  loadGeneralData(){
     this.css
       .loadCostaRicaData()
-      .toPromise()
-      .then(CovidInterface => {
+      .subscribe( CovidInterface => {
         //console.log("JSON ", JSON.stringify(CovidInterface));
         //console.log("GeneralData with Interface:", CovidInterface.data.covid19Stats[0]);
         this.lastChecked = new Date(CovidInterface.data.covid19Stats[0].lastUpdate);
         this.cases = CovidInterface.data.covid19Stats[0].confirmed;
         this.totalRecovered = CovidInterface.data.covid19Stats[0].recovered;
         this.deaths = CovidInterface.data.covid19Stats[0].deaths;
-      })
-      .catch(error => console.log(error));
-  }
+        //console.log(CovidInterface)
+      });
+    }
 
   onProvinceChanged(value: string) {
 
@@ -210,7 +209,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  loadCantonesMap(){
+  loadProvincesMap(){
     // this.css.load().subscribe(data => {
     //   // this.provinceData = data["data"][0]["byLocation"];
     //   // console.log(this.provinceData);
@@ -222,10 +221,8 @@ export class MapComponent implements OnInit {
     this.css.loadProvinceData().subscribe(
       ( ProviceObject ) => {
       this.provinceData = ProviceObject;
-      this.initCantonesMap(this.provinceData);
-      },
-      err => { console.log('Error:', err)},
-      () => {console.log('Data loaded successfully')}
+      this.initProvincesMap(this.provinceData);
+      }
     );
   }
 }
