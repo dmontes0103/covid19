@@ -13,7 +13,7 @@ export class CoronastatisticsService {
   URL_API_2 = 'http://api.coronastatistics.live/countries/costa%20rica';
   URL_API = 'https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats';
   API_KEY = '';
-  CR_API = 'https://coronaviruscr.com/api/reports';
+  CR_API = '/api/reports';
 
   countryData = <RootObject>{ error: true, statusCode: 400, message: '', data: {} };
   provinceData = <ProviceObject>{ data: [] };
