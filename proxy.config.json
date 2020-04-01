@@ -2,6 +2,7 @@
     "/api/*":{
         "target":"https://coronaviruscr.com",
         "secure":false,
-        "logLevel":"debug"
+        "logLevel":"debug",
+        "changeOrigin":true
     }
 }
