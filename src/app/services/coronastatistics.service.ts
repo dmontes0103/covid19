@@ -45,7 +45,7 @@ export class CoronastatisticsService {
     return this.httpClient.get<ProviceObject>(this.CR_API, { headers })
       .pipe(
         catchError(
-          this.handleError<ProviceObject>('Province API', this.provinceData))
+          this.handleError<ProviceObject>('Province API'))
       );
   }
 
