@@ -1,6 +1,6 @@
 export default [{
   "name": "Grecia",
-  "latlng": [10.0726507, -84.3117298],
+  "latlng": [10.073277,-84.311319],
   "cases": 9
 }, {
   "name": "Alajuela",
@@ -133,7 +133,7 @@ export default [{
 }, {
   "name": "Palmares	",
   "cases": 1,
-  "latlng": [10.056764, -84.4347075]
+  "latlng": [10.055783,-84.433472]
 }, {
   "name": "Liberia		",
   "cases": 1,
@@ -162,4 +162,14 @@ export default [{
   "name": "Tilaran	",
   "latlng": [10.4670143, -84.972916],
   "cases": 1
-}]
+},{
+    "name": "Naranjo	",
+    "latlng": [10.098163,-84.378283],
+    "cases": 1
+}
+
+]
+
+
+
+

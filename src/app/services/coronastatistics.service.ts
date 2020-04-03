@@ -1,3 +1,4 @@
+import { ICanton } from './../models/Cantones';
 import { ProviceObject } from './../models/CovidProvinces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -53,8 +54,12 @@ export class CoronastatisticsService {
     return this.httpClient.get(this.URL_API_2);
   }
 
-  loadDistrictsData() {
-    return this.httpClient.get('http://geovision.uned.ac.cr/oges/archivos_covid/03_28/03_28_CSV.csv', { responseType: 'text' });
+  loadDistrictsData():Observable<ICanton[]>{
+    return this.httpClient.get<ICanton[]>('https://cherry-cupcake-98677.herokuapp.com/api/reports/districts')
+    .pipe(
+      catchError(
+        this.handleError<ICanton[]>('Cantones API Error'))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
