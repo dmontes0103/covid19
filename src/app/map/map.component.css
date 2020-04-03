@@ -20,8 +20,8 @@
 
 #generalStats {
   position: absolute;
-  bottom: 25px;
-  left: 25px;
+  bottom: 15px;
+  left: 200px;
 }
 
 #showMarkers {
