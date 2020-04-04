@@ -4,16 +4,22 @@
     <div class="sidebar-header">
       <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
         <a class="navbar-brand" href="#">{{ title }}
-            <i class="fas fa-tools"></i>
+          <i class="fas fa-tools"></i>
         </a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"
+          aria-expanded="true">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navb" class="navbar-collapse collapse hide">
         </div>
-    </nav>
-  </div>
+      </nav>
+    </div>
   </nav>
   <nav class="sidenav">
+      <div class="btn-group-vertical">
+        <button type="button" class="btn btn-light" *ngFor="let c of cantones">
+          {{ c.canton }}<span class="badge badge-dark">Casos: {{ c[dataDate] }}</span>
+        </button>
+      </div>
   </nav>
 </div>

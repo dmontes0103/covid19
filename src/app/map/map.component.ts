@@ -42,20 +42,9 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.css.loadDistrictsData().subscribe((Data: any) => {
-      this.cantones = Data;
-      for (let c in this.cantones) {
-        var casos: Number = this.cantones[c]["30/03/2020"];
-        //console.log(casos);
-        if (casos != 0) {
-          console.log(
-            this.cantones[c].canton,"casos:",this.cantones[c]["30/03/2020"]
-          );
-        }
-      }
-    });
     this.initMainLayer();
     this.loadGeneralData();
+    this.loadProvincesMap();
   }
 
   initMainLayer() {
@@ -75,11 +64,11 @@ export class MapComponent implements OnInit {
     ).addTo(this.map);
   }
 
-  showDistricts() {
-    this.map.remove();
-    this.initMainLayer();
-    this.initMarkers();
-  }
+  // showDistricts() {
+  //   this.map.remove();
+  //   this.initMainLayer();
+  //   this.initMarkers();
+  // }
 
   showProvinces() {
     this.map.remove();
@@ -160,12 +149,6 @@ export class MapComponent implements OnInit {
     });
 
     name.forEach(element => {
-      // const data = `<div class="card text-center" style="width: 18rem;" ><div class="card-body" >
-      //  <h5 class="card-title"> ${element.name} </h5>
-      //    <p class="card-text">Casos confirmados: ${element.cases} </p>
-      //    </div>
-      //  </div>`;
-
       const data = `<div class="info">
         <h4> <b> ${element.name} </b> </h4>
           <p>Casos confirmados: ${element.cases} </p>
@@ -177,8 +160,6 @@ export class MapComponent implements OnInit {
         .addTo(this.map)
         .bindPopup(data);
     });
-
-    //console.log(Object.keys(name));
     console.log(name[0]["name"]);
   }
 
@@ -218,14 +199,6 @@ export class MapComponent implements OnInit {
   }
 
   loadProvincesMap() {
-    // this.css.load().subscribe(data => {
-    //   // this.provinceData = data["data"][0]["byLocation"];
-    //   // console.log(this.provinceData);
-    //   // // for (const p in dataByLoc) {
-    //   // //   this.setProvinceCases(p.toUpperCase(), dataByLoc[p])
-    //   // // };
-    //   return data["data"][0]["byLocation"];
-    // });
     this.css.loadProvinceData().subscribe(ProviceObject => {
       this.provinceData = ProviceObject;
       this.initProvincesMap(this.provinceData);

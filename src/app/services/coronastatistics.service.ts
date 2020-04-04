@@ -54,8 +54,8 @@ export class CoronastatisticsService {
     return this.httpClient.get(this.URL_API_2);
   }
 
-  loadDistrictsData():Observable<ICanton[]>{
-    return this.httpClient.get<ICanton[]>('https://cherry-cupcake-98677.herokuapp.com/api/reports/districts')
+  loadCantonesData():Observable<ICanton[]>{
+    return this.httpClient.get<ICanton[]>('https://cherry-cupcake-98677.herokuapp.com/api/reports/cantones')
     .pipe(
       catchError(
         this.handleError<ICanton[]>('Cantones API Error'))

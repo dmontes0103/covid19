@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ErrorHandlingService } from './services/error-handling.service';
+import { DatePipe } from '@angular/common'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ErrorHandlingService } from './services/error-handling.service';
     HttpClientModule,
     LeafletModule.forRoot()
   ],
-  providers: [CoronastatisticsService,ErrorHandlingService],
+  providers: [CoronastatisticsService,ErrorHandlingService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
