@@ -16,10 +16,75 @@
     </div>
   </nav>
   <nav class="sidenav">
-      <div class="btn-group-vertical">
-        <button type="button" class="btn btn-light" *ngFor="let c of cantones">
-          {{ c.canton }}<span class="badge badge-dark">Casos: {{ c[dataDate] }}</span>
-        </button>
-      </div>
+    <div style="display: grid;
+      justify-content: center;
+      align-items: center;">
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Alajuela" id="bAlajuela" #bAlajuela [value]="2"
+        class="btn btn-primary" (click)="showCantones(this.bAlajuela.value, this.bAlajuela.name)">
+        <!-- {{ c.canton }}<span class="badge badge-dark">Casos: {{ c[dataDate] }}</span> -->
+        Alajuela <span class="badge badge-light"> {{ cantonesA.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="San Jose" #bSj [value]="1" class="btn btn-primary"
+        (click)="showCantones(this.bSj.value,this.bSj.name)">
+        San Jose <span class="badge badge-light"> {{ cantonesS.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Cartago" #bCartago [value]="3" class="btn btn-primary"
+        (click)="showCantones(this.bCartago.value,this.bCartago.name)">
+        Cartago <span class="badge badge-light"> {{ cantonesG.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Heredia" #bHeredia [value]="4" class="btn btn-primary"
+        (click)="showCantones(this.bHeredia.value,this.bHeredia.name)">
+        Heredia <span class="badge badge-light"> {{ cantonesH.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Guanacaste" #bGuana [value]="5" class="btn btn-primary"
+        (click)="showCantones(this.bGuana.value,this.bGuana.name)">
+        Guanacaste <span class="badge badge-light"> {{ cantonesG.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Puntarenas" #bPuntare [value]="6" class="btn btn-primary"
+        (click)="showCantones(this.bPuntare.value,this.bPuntare.name)">
+        Puntarenas <span class="badge badge-light"> {{ cantonesP.length }} </span>
+      </button>
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Limon" #bLimon [value]="7" class="btn btn-primary"
+        (click)="showCantones(this.bLimon.value,this.bLimon.name)">
+        Limon <span class="badge badge-light"> {{cantonesL.length}} </span>
+      </button>
+    </div>
   </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{ provincia }}</h5>          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6>Fecha</h6>
+          <p> {{ dataDate }}</p>
+          <table class="table">            
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Canton</th>                
+                <th scope="col">Casos</th>
+              </tr>
+            </thead>
+            <tbody  *ngFor="let c of cantonesModal">
+              <tr>
+                <td>{{ c.canton }}</td>                
+                <td>{{ c[dataDate] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

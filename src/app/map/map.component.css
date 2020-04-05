@@ -20,8 +20,8 @@
 
 #generalStats {
   position: absolute;
-  bottom: 14%;
-  left: 11%;
+  top: 10%;
+  right: 5%;
 }
 
 #showMarkers {
