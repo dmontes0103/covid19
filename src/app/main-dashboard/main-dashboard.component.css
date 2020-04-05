@@ -37,7 +37,7 @@
   }
 
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-  @media screen and (max-height: 812px) {
+  @media screen and (min-height: 600px) {
     .sidenav {
       padding-top: 15px;
     }
@@ -54,7 +54,7 @@
     }
   }
 
-  @media screen and (max-width:375px){
+  @media screen and (min-width:320px){
     .sidenav{      
     width: 5rem; /* Set the width of the sidebar */   
     }
