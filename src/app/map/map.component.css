@@ -1,12 +1,12 @@
 .map-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top:2%;
+    left:11%;
+    right: 1%;
+    bottom: 1%;
     margin-top: 50px;
     z-index: 0;
-  }
+}
 
   .map-frame {
     border: 2px solid black;
@@ -22,6 +22,18 @@
   position: absolute;
   top: 10%;
   right: 5%;
+}
+
+@media screen and (max-height: 812px) {
+  #generalStats{
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width:375px){
+  #generalStats{
+    font-size: 7px;
+  }
 }
 
 #showMarkers {

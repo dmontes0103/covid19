@@ -48,7 +48,7 @@ export class MapComponent implements OnInit {
   }
 
   initMainLayer() {
-    this.map = L.map("map", { center: [9.934739, -84.087502], zoom: 9 });
+    this.map = L.map("map", { center: [9.934739, -84.087502], zoom: 6 });
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
       {
@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         id: "mapbox/streets-v11",
         tileSize: 512,
-        zoomOffset: -1
+        zoomOffset: -1,
       }
     ).addTo(this.map);
 

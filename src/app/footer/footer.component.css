@@ -7,3 +7,20 @@ footer {
   text-align: center;
   z-index: 1;
 }
+
+@media screen and (max-height: 812px) {
+   p{
+    font-size: 7px;
+   } 
+}
+
+@media screen and (max-width:375px){
+  footer{
+    position: fixed;
+   
+  }
+  p{
+    font-size: 7px;
+  }  
+  
+}
