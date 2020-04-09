@@ -39,6 +39,7 @@ export class MainDashboardComponent implements OnInit {
     this.coronaServ.loadCantonesData().subscribe((Data: ICanton[]) => {
       //console.log(Data);
       for (let c of Data) {
+        //console.log(Data)
         var casos: Number = c[date];
         if (casos >= 1) {
           //console.log(c);
@@ -75,7 +76,7 @@ export class MainDashboardComponent implements OnInit {
 
   getDate() {
     var date = new Date();
-    date.setDate(date.getDate() - 1);
+    date.setDate(date.getDate());
     return this.datepipe.transform(date,'dd/MM/yyyy')
   }
 

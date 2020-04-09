@@ -54,8 +54,13 @@ export class CoronastatisticsService {
     return this.httpClient.get(this.URL_API_2);
   }
 
+  devUrl = 'http://localhost:5000/api/reports/cantones';
+ //'https://floating-refuge-22797.herokuapp.com/api/reports/cantones'
   loadCantonesData():Observable<ICanton[]>{
-    return this.httpClient.get<ICanton[]>('https://cherry-cupcake-98677.herokuapp.com/api/reports/cantones')
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept','application/json');
+    return this.httpClient.get<ICanton[]>('https://floating-refuge-22797.herokuapp.com/api/reports/cantones',{headers})
     .pipe(
       catchError(
         this.handleError<ICanton[]>('Cantones API Error'))

@@ -24,13 +24,13 @@
   right: 5%;
 }
 
-@media screen and (min-height: 667px) {
+@media screen and (max-height: 667px) {
   #generalStats{
     font-size: 8px;
   }
 }
 
-@media screen and (min-width:375px){
+@media screen and (max-width:375px){
   #generalStats{
     font-size: 8px;
   }

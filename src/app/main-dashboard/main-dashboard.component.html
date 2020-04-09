@@ -5,40 +5,45 @@
       <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
         <a class="navbar-brand" href="#">{{ title }}
           <i class="fas fa-tools"></i>
+          <img src="https://www.countryflags.io/cr/shiny/32.png">
         </a>
       </nav>
     </div>
   </nav>
   <nav class="sidenav">
     <div class="wrapper">
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Alajuela" #bAlajuela [value]="2" class="btn btn-primary item" 
-      (click)="showCantones(this.bAlajuela.value, this.bAlajuela.name)">
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Alajuela"
+        #bAlajuela [value]="2" class="btn btn-primary item"
+        (click)="showCantones(this.bAlajuela.value, this.bAlajuela.name)">
         <!-- {{ c.canton }}<span class="badge badge-dark">Casos: {{ c[dataDate] }}</span> -->
         Alajuela <span class="badge badge-light"> {{ cantonesA.length }} </span>
       </button>
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="San Jose" #bSj [value]="1" class="btn btn-primary item"
-        (click)="showCantones(this.bSj.value,this.bSj.name)">
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="San Jose"
+        #bSj [value]="1" class="btn btn-primary item" (click)="showCantones(this.bSj.value,this.bSj.name)">
         San Jose <span class="badge badge-light"> {{ cantonesS.length }} </span>
       </button>
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Cartago" #bCartago [value]="3" class="btn btn-primary item"
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Cartago"
+        #bCartago [value]="3" class="btn btn-primary item"
         (click)="showCantones(this.bCartago.value,this.bCartago.name)">
         Cartago <span class="badge badge-light"> {{ cantonesG.length }} </span>
       </button>
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Heredia" #bHeredia [value]="4" class="btn btn-primary item"
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Heredia"
+        #bHeredia [value]="4" class="btn btn-primary item"
         (click)="showCantones(this.bHeredia.value,this.bHeredia.name)">
         Heredia <span class="badge badge-light"> {{ cantonesH.length }} </span>
       </button>
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Guanacaste" #bGuana [value]="5" class="btn btn-primary item"
-        (click)="showCantones(this.bGuana.value,this.bGuana.name)">
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Guanacaste"
+        #bGuana [value]="5" class="btn btn-primary item" (click)="showCantones(this.bGuana.value,this.bGuana.name)">
         Guanacaste <span class="badge badge-light"> {{ cantonesG.length }} </span>
       </button>
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Puntarenas" #bPuntare [value]="6" class="btn btn-primary item"
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Puntarenas"
+        #bPuntare [value]="6" class="btn btn-primary item"
         (click)="showCantones(this.bPuntare.value,this.bPuntare.name)">
         Puntarenas <span class="badge badge-light"> {{ cantonesP.length }} </span>
       </button>
-      
-      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Limon" #bLimon [value]="7" class="btn btn-primary item"
-        (click)="showCantones(this.bLimon.value,this.bLimon.name)">
+
+      <button type="button" data-toggle="modal" data-target="#modalDetail" style="margin-bottom: 5%;" name="Limon"
+        #bLimon [value]="7" class="btn btn-primary item" (click)="showCantones(this.bLimon.value,this.bLimon.name)">
         Limon <span class="badge badge-light"> {{cantonesL.length}} </span>
       </button>
     </div>
@@ -61,7 +66,15 @@
         </div>
         <div class="modal-body">
           <h6>Fecha</h6>
-          <p> {{ dataDate }}</p>
+          <p><svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+                clip-rule="evenodd" />
+              <path fill-rule="evenodd"
+                d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z"
+                clip-rule="evenodd" />
+            </svg>{{ dataDate }}</p>
           <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -69,7 +82,7 @@
                 <th scope="col">Casos</th>
               </tr>
             </thead>
-            <tbody  *ngFor="let c of cantonesModal">
+            <tbody *ngFor="let c of cantonesModal">
               <tr>
                 <td>{{ c.canton }}</td>
                 <td>{{ c[dataDate] }}</td>
