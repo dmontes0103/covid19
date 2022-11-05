@@ -842,7 +842,7 @@ let MainDashboardComponent = class MainDashboardComponent {
     }
     ngOnInit() {
         this.dataDate = this.getDate();
-        //console.log(this.dataDate);
+        console.log(this.dataDate);
         this.initCantonesMarkers(this.getDate());
     }
     initCantonesMarkers(date) {
@@ -851,6 +851,7 @@ let MainDashboardComponent = class MainDashboardComponent {
             for (let c of Data) {
                 //console.log(Data)
                 var casos = c[date];
+                console.log(date);
                 if (casos >= 1) {
                     //console.log(c);
                     switch (c.cod_provin) {
@@ -917,6 +918,7 @@ let MainDashboardComponent = class MainDashboardComponent {
     getDate() {
         var date = new Date();
         date.setDate(date.getDate() - 1);
+        return "08/04/2020";
         return this.datepipe.transform(date, 'dd/MM/yyyy');
     }
     showCantones(value, name) {

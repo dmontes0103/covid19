@@ -31,7 +31,7 @@ export class MainDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.dataDate = this.getDate();
-    //console.log(this.dataDate);
+    console.log(this.dataDate);
     this.initCantonesMarkers(this.getDate());
   }
 
@@ -41,6 +41,8 @@ export class MainDashboardComponent implements OnInit {
       for (let c of Data) {
         //console.log(Data)
         var casos: Number = c[date];
+        
+        console.log(date)
         if (casos >= 1) {
           //console.log(c);
           switch( c.cod_provin ){
@@ -77,6 +79,7 @@ export class MainDashboardComponent implements OnInit {
   getDate() {
     var date = new Date();
     date.setDate(date.getDate() - 1);
+    return "08/04/2020"
     return this.datepipe.transform(date,'dd/MM/yyyy')
   }
 

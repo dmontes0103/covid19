@@ -1408,8 +1408,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(MainDashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          this.dataDate = this.getDate(); //console.log(this.dataDate);
-
+          this.dataDate = this.getDate();
+          console.log(this.dataDate);
           this.initCantonesMarkers(this.getDate());
         }
       }, {
@@ -1427,6 +1427,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var c = _step.value;
                 //console.log(Data)
                 var casos = c[date];
+                console.log(date);
 
                 if (casos >= 1) {
                   //console.log(c);
@@ -1524,6 +1525,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getDate() {
           var date = new Date();
           date.setDate(date.getDate() - 1);
+          return "08/04/2020";
           return this.datepipe.transform(date, 'dd/MM/yyyy');
         }
       }, {
