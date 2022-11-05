@@ -60,7 +60,7 @@ export class CoronastatisticsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept','application/json');
-    return this.httpClient.get<ICanton[]>('https://floating-refuge-22797.herokuapp.com/api/reports/cantones',{headers})
+    return this.httpClient.get<ICanton[]>('https://cherry-cupcake-98677.herokuapp.com/api/reports/cantones',{headers})
     .pipe(
       catchError(
         this.handleError<ICanton[]>('Cantones API Error'))
