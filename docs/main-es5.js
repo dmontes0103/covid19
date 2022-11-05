@@ -2154,7 +2154,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! C:\Users\monte\Documents\GitHub\covid19-1\src\main.ts */
+    /*! C:\Users\monte\Documents\GitHub\covid19\src\main.ts */
     "./src/main.ts");
     /***/
   }

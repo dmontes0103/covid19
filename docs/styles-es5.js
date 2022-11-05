@@ -447,15 +447,15 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! C:\Users\monte\Documents\GitHub\covid19-1\src\styles.css */
+    /*! C:\Users\monte\Documents\GitHub\covid19\src\styles.css */
     "./src/styles.css");
 
     __webpack_require__(
-    /*! C:\Users\monte\Documents\GitHub\covid19-1\node_modules\bootstrap\dist\css\bootstrap.min.css */
+    /*! C:\Users\monte\Documents\GitHub\covid19\node_modules\bootstrap\dist\css\bootstrap.min.css */
     "./node_modules/bootstrap/dist/css/bootstrap.min.css");
 
     module.exports = __webpack_require__(
-    /*! C:\Users\monte\Documents\GitHub\covid19-1\node_modules\leaflet\dist\leaflet.css */
+    /*! C:\Users\monte\Documents\GitHub\covid19\node_modules\leaflet\dist\leaflet.css */
     "./node_modules/leaflet/dist/leaflet.css");
     /***/
   }
